@@ -75,7 +75,7 @@ app.post("/upload", upload.single("image"), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ message: "Không có file được tải lên" });
     }
-    const imageUrl = `http://localhost:5000/uploads/${req.file.filename}`;
+    const imageUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
     console.log("Upload thành công:", imageUrl);
     res.json({ imageUrl });
 });
@@ -85,7 +85,7 @@ app.post("/upload-multiple", upload.array("images", 10), (req, res) => {
     if (!req.files || req.files.length === 0) {
         return res.status(400).json({ message: "Không có file nào được tải lên" });
     }
-    const imageUrls = req.files.map(file => `http://localhost:5000/uploads/${file.filename}`);
+    const imageUrls = req.files.map(file => `${req.protocol}://${req.get("host")}/uploads/${file.filename}`);
     res.json({ imageUrls });
 });
 
@@ -254,6 +254,7 @@ app.delete("/contacts/:id", async (req, res) => {
     }
 });
 
-app.listen(5000, () => {
-    console.log("Server chạy tại http://localhost:5000");
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server chạy tại http://localhost:${PORT}`);
 });
