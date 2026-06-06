@@ -89,6 +89,10 @@ app.post("/upload-multiple", upload.array("images", 10), (req, res) => {
     res.json({ imageUrls });
 });
 
+app.get("/", (req, res) => {
+    res.send("Server is running!");
+});
+
 app.get("/diag", (req, res) => {
     const uploadPath = path.join(__dirname, "uploads");
     res.json({
