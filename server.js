@@ -43,6 +43,8 @@ const ProductSchema = new mongoose.Schema({
     features: String,
     specs: String,
     stock: { type: Number, default: 10 }, // Mặc định là 10 nếu không nhập
+    badge: String,
+    colors: String,
 });
 
 const Product = mongoose.model("Product", ProductSchema);
