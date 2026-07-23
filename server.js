@@ -83,7 +83,8 @@ app.post("/upload", upload.single("image"), (req, res) => {
 });
 
 // Route upload nhiều ảnh
-app.post("/upload-multiple", upload.array("images", 10), (req, res) => {
+app.post("/upload-multiple", upload.array("images", 50), (req, res) => {
+    console.log("Upload multiple called with files count:", req.files ? req.files.length : 0);
     if (!req.files || req.files.length === 0) {
         return res.status(400).json({ message: "Không có file nào được tải lên" });
     }
